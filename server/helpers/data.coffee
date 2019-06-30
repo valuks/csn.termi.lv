@@ -1,4 +1,5 @@
 pjson = require('../../package.json')
+Error404 = require('./errors').Error404
 config = require('../../config').get()
 
 
@@ -42,8 +43,9 @@ module.exports.Data = class Data
       where:
         published: 1
         'j.type_id': @options.categories
-      # limit: 10000
-      limit: 10
+        update:
+          date: config.article_lifetime
+      limit: 10000
       sub:
         select: (row)->
           return {
@@ -84,7 +86,7 @@ module.exports.Data = class Data
     id = @_categories_url[url]
     if id < 0
       throw new Error404
-    _.extend @list(@_categories[id].articles, page), {
+    Object.assign @list(@_categories[id].articles, page), {
       url: "/#{url}"
       title: @_categories[id].name
       category_active: id

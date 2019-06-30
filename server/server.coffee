@@ -7,17 +7,13 @@ Mysql = require('./helpers/mysql').Mysql
 email = require('./helpers/email')
 Template = require('./helpers/template').Template
 Data = require('./helpers/data').Data
+Error404 = require('./helpers/errors').Error404
 
 email.config(config.support)
 db = new Mysql(config.db)
 
 
-class Error404 extends Error
-  name: 'Error404'
-  constructor: ->
-    super ...arguments
-    @value = 404
-    @message = 'Not Found'
+
 
 
 app = express()
@@ -63,5 +59,12 @@ App.data._load =>
 
   app.get '*', (req, res)->
     res.status(404).send(App.template.error('404'))
+
+  reload = =>
+    setTimeout =>
+      App.data._load =>
+        reload()
+    , 1000 * 60 * 30
+  reload()
 
 console.log("http://127.0.0.1:#{config.port}/ version: #{pjson.version} #{if config.development then ' in development mode'}")

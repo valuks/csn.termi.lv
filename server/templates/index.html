@@ -1,37 +1,40 @@
-<%= header({url: url, title: title, description: description, image: image, lang: lang, version: version})%>
-
+<%= header({url: url, title: title, description: lang.description_category(title), lang: lang, version: version}) %>
+<%= sidebar({category_active: category_active}) %>
 <div id="container">
-<%= starred %>
+  <% articles.forEach(function (article) { %>
+      <section class="list">
+          <h1><%- article.text %></h1>
+          <time><%= lang.date(article.update) %></time>
 
-    <div>
-        <div class="container-block">
-            <% articles.forEach(function (article) { %>
-                <section class="list">
-                    <h1><a href="/<%= article.url %>" title="<%- article.title %>"><%- article.title %></a>
-                        <time><%= lang.date(article.date) %></time>
-                    </h1>
-                    <% if (article.video) { %>
-                        <%= article.video %>
-                    <% } else { %>
-                        <a href="/<%= article.url %>" title="<%- article.title %>"><img alt="<%- article.img_title || article.title %>" title="<%- article.img_title || article.title %>" src="<%= article.img %>" /></a>
-                    <% } %>
-                    <p>
-                        <%= article.intro %>
-                    </p>
-                    <a href="/<%= article.url %>"><%= lang.read_more %></a>
-                </section>
+          <% if (article.image){ %>
+            <a href='/media/<%= article.image %>'><img src='http://csn.termi.lv/media/<%= article.image %>' /></a>
+          <% } %>
+
+          <ol>
+            <% article.sub.select.forEach(function (answer) { %>
+              <li<%= answer.id === article.correct_id ? ' class="correct"' : '' %>><%= answer.text %></li>
             <% }) %>
-            <nav class="pages">
-                <% if (page.active > 1) { %>
-                    <a class="pages-prev" href="<%= url + (page.active > 2 ? '/' + (page.active - 1) : (url.length === 0 ? '/' : '')) %>" title="<%= lang.next %>"><%= lang.next %></a>
-                <% } %>
-                <% if (page.active < page.total) { %>
-                    <a class="pages-next" href="<%= url + '/' + (page.active + 1) %>" title="<%= lang.previous %>"><%= lang.previous %></a>
-                <% } %>
-            </nav>
-        </div>
-        <%= sidebar %>
-    </div>
+          </ol>
+      </section>
+  <% }) %>
+  <script>
+    document.querySelectorAll('.list ol').forEach(function (item) {
+      var correct = item.querySelectorAll('.correct')[0];
+      item.onclick = function () {
+        correct.setAttribute('data-highlight', '');
+        correct.clientHeight;
+        correct.removeAttribute('data-highlight');
+      };
+    })
+  </script>
+  <nav class="pages">
+      <% if (page.active > 1) { %>
+          <a class="pages-prev" href="<%= url + (page.active > 2 ? '/' + (page.active - 1) : (url.length === 0 ? '/' : '')) %>"><%= lang.previous %></a>
+      <% } %>
+        <span><%= page.active %>. <%= lang.page %></span>
+      <% if (page.active < page.total) { %>
+          <a class="pages-next" href="<%= url + '/' + (page.active + 1) %>"><%= lang.next %></a>
+      <% } %>
+  </nav>
 </div>
 <%= footer %>
-© 2019 Git
