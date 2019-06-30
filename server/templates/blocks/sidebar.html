@@ -1,0 +1,11 @@
+<aside>
+    <nav class="category">
+      <ul>
+        <% categories.forEach(function (category, index) { %>
+            <li <%= category_active===index ? ' class="active"' : '' %>>
+              <a href="/<%= category.url %>" title="<%= category.name %>"><%= category.name %></a>
+            </li>
+        <% }) %>
+      </ul>
+    </nav>
+</aside>

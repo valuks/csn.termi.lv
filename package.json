@@ -1,0 +1,13 @@
+{
+  "name": "csnt.termi.lv",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "coffeescript": "^2.4.1",
+    "emailjs": "^2.2.0",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {}
+}

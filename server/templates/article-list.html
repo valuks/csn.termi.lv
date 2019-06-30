@@ -1,0 +1,48 @@
+<%= header({url: url, title: title, description: description, image: image, lang: lang, version: version})%>
+<div id="container">
+
+    <%= starred %>
+    <div>
+        <div class="container-block">
+            <section>
+                <h1><%- article.title %>
+                    <time><%= lang.date(article.date) %></time></h1>
+                <%= article.full %>
+            </section>
+            <% if (locations.length > 0) { %>
+                <nav class="article-category">
+                    <%= lang.locations %>:
+                    <% locations.forEach(function (t) { %>
+                        <a href="/<%= lang.location %>/<%= t.url %>" title="<%- t.title %>"><%- t.title %></a>
+                    <% }) %>
+                </nav>
+            <% } %>
+            <% if (tags.length > 0) { %>
+                <nav class="article-category">
+                    <%= lang.tags %>:
+                    <% tags.forEach(function (t) { %>
+                        <a href="/<%= lang.tag %>/<%= t.url %>" title="<%- t.title %>"><%- t.title %></a>
+                    <% }) %>
+                </nav>
+
+            <% } %>
+            <nav class="article-shares">
+
+                <div id="draugiemLike"></div>
+
+                <a class="twitter-share-button"
+                   href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(article.title) %>&url=<%= encodeURIComponent(lang.url + '/' + article.url) %>&via=<%= lang.connect_tw %>"
+                   data-size="large">
+                    Tweet</a>
+
+                <div class="fb-like" <% if (article.url_old) { %> data-href="<%= lang.url %>/<%= article.url_old %>" <% } %> data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+            </nav>
+
+            <div class="fb-comments" data-width="100%" <% if (article.url_old) { %> data-href="<%= lang.url %>/<%= article.url_old %>" <% } %> data-numposts="100"></div>
+        </div>
+        <%= sidebar %>
+    </div>
+</div>
+
+<%= footer %>
