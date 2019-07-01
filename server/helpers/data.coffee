@@ -83,9 +83,9 @@ module.exports.Data = class Data
     }
 
   category: (url, page)->
-    id = @_categories_url[url]
-    if id < 0
+    if !(url of @_categories_url)
       throw new Error404
+    id = @_categories_url[url]
     Object.assign @list(@_categories[id].articles, page), {
       url: "/#{url}"
       title: @_categories[id].name

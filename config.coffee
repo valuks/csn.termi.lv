@@ -29,6 +29,11 @@ exports.get = (subconfigs = ['local'])->
         description: """
           Lapa nav atrasta. Ej <a href="/">uz sākumu</a>.
         """
+      500:
+        title: '500 servera kļūda'
+        description: """
+          Uzgaidi mazliet vai atgriezies <a href="/">uz sākumu</a>.
+        """
     static: [
       {
         url: '/'

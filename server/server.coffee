@@ -40,6 +40,7 @@ App = {
     catch e
       if e instanceof Error404
         return res.status(404).send(App.template.error('404'))
+      res.status(500).send(App.template.error('500'))
       throw e
 }
 
