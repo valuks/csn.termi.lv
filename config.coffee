@@ -37,8 +37,8 @@ exports.get = (subconfigs = ['local'])->
     static: [
       {
         url: '/'
+        title: 'Tematiskie uzdevumi ceļu satiksmes noteikumos'
         description: """
-      <h1>Tematiskie uzdevumi ceļu satiksmes noteikumos</h1>
       <p>Jautājumi ņemti no <u>csnt.csdd.lv</u> un pie katra jautājuma ir datums (apzīmē jautājuma svaigumu).</p>
       <p>Izvēlieties pa kreisi vēlamo kategoriju.</p>
       <p>Pareizā atbilde iedegsies, ja uzspiedīsiet uz jautājuma atbildēm.</p>
